@@ -54,7 +54,7 @@ The application will be running on port 8080 and can be interacted with in your 
 
 **Alternative method**
 
-```
+```bash
 # Open the folder in your favourite IDE. If you are using VSCode:
 code .
 
