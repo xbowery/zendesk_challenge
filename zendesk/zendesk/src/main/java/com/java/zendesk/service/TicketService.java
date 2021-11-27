@@ -85,12 +85,63 @@ public class TicketService {
         return ticketList;
     }
 
-    public static void printAllTickets() {
+    public static void printAllTickets(int count) {
+        Scanner sc = new Scanner(System.in);
+        int pageNo = count;
+        int totalPageNo = (int) Math.ceil(ticketList.size() * 1.0 / maxTicketPerPage);
+
+        if (count != totalPageNo) {
+            System.out.printf("Viewing Ticket #%d to Ticket #%d\n", ((count - 1) * maxTicketPerPage + 1),
+                    (count * maxTicketPerPage));
+        } else {
+            System.out.printf("Viewing Ticket #%d to Ticket #%d\n", ((count - 1) * maxTicketPerPage + 1),
+                    ticketList.size());
+        }
+
+        System.out.println("");
         System.out.printf("%-5s%-50s%-15s%-15s%-25s%s\n", "ID", "Subject", "Type", "Priority", "Date Created",
                 "Status");
-        for (Ticket ticket : ticketList) {
-            System.out.printf("%-5d%-50s%-15s%-15s%-25s%s\n", ticket.getId(), ticket.getSubject(), ticket.getType(),
-                    ticket.getPriority(), ticket.getCreatedDate(), ticket.getStatus());
+        for (int i = (count - 1) * maxTicketPerPage; i < count * maxTicketPerPage; i++) {
+            if (i < ticketList.size())
+                System.out.print(ticketList.get(i).toString());
+            else
+                break;
+        }
+
+        System.out.println("");
+        System.out.printf("You are viewing Page %d of %d\n", pageNo, totalPageNo);
+        System.out.println("");
+
+        System.out.println("Do you want to view other pages? (Y/N)");
+        System.out.print("Enter your choice: ");
+        String choice = sc.nextLine();
+        System.out.println("");
+
+        while (!choice.equals("Y") && !choice.equals("N")) {
+            System.out.println("Invalid input. Please enter only Y or N.");
+            System.out.println("Do you want to view other pages? (Y/N)");
+            System.out.print("Enter your choice: ");
+            choice = sc.nextLine();
+        }
+
+        if (choice.equals("N")) {
+            return;
+        } else if (choice.equals("Y")) {
+            System.out.printf("Which page would you like to view? You can choose from Page 1 to Page %d\n",
+                    totalPageNo);
+            System.out.print("Enter your choice: ");
+            int pageChoice = sc.nextInt();
+            sc.nextLine();
+            System.out.println("");
+            while (pageChoice < 1 || pageChoice > totalPageNo) {
+                System.out.printf("Invalid input. Please enter only between 1 and %d.\n", totalPageNo);
+                System.out.print("Enter your choice: ");
+
+                pageChoice = sc.nextInt();
+                sc.nextLine();
+                System.out.println("");
+            }
+            printAllTickets(pageChoice);
         }
     }
 }

@@ -23,7 +23,7 @@ public class Ticket {
     public Ticket(int id, String created_at, String updated_at, String type, String subject, String priority,
             String status) {
         this.id = id;
-        
+
         String[] tempStringArray = created_at.split("T");
         tempStringArray[1] = tempStringArray[1].substring(0, 8);
         this.created_at = tempStringArray[0] + " " + tempStringArray[1];
@@ -64,5 +64,11 @@ public class Ticket {
 
     public String getStatus() {
         return status;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%-5d%-50s%-15s%-15s%-25s%s\n", this.getId(), this.getSubject(), this.getType(),
+                this.getPriority(), this.getCreatedDate(), this.getStatus());
     }
 }
