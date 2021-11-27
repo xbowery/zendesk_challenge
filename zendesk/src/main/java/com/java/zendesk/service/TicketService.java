@@ -88,7 +88,6 @@ public class TicketService {
             String nextPageURL = (String) nextPage;
             addAllTickets(nextPageURL);
         } else {
-            System.out.println("yay!");
             ticketList = tickets.findAll();
             return;
         }
