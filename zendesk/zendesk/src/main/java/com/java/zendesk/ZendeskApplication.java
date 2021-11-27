@@ -37,7 +37,9 @@ public class ZendeskApplication {
 				TicketService.printAllTickets();
 			}
 		} catch (IOException e) {
-			System.out.println("Sorry, there was an error reading the data while connecting. Please try again later.");
+			System.out.println(
+					"Sorry, there was an error reading the data while connecting. Please check whether you have entered your credentials correctly and try again later.");
+			ctx.close();
 		}
 		System.out.println("Thank you for using the app. Have a good day ahead!");
 		ctx.close();

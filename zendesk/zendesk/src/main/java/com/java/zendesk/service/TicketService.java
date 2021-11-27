@@ -8,6 +8,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.Scanner;
 
 import com.java.zendesk.model.Ticket;
 
@@ -85,10 +86,10 @@ public class TicketService {
     }
 
     public static void printAllTickets() {
-        System.out.printf("%-5s%-50s%-15s%-15s%-15s%s\n", "ID", "Subject", "Type", "Priority", "Date Created",
+        System.out.printf("%-5s%-50s%-15s%-15s%-25s%s\n", "ID", "Subject", "Type", "Priority", "Date Created",
                 "Status");
         for (Ticket ticket : ticketList) {
-            System.out.printf("%-5d%-50s%-15s%-15s%-15s%s\n", ticket.getId(), ticket.getSubject(), ticket.getType(),
+            System.out.printf("%-5d%-50s%-15s%-15s%-25s%s\n", ticket.getId(), ticket.getSubject(), ticket.getType(),
                     ticket.getPriority(), ticket.getCreatedDate(), ticket.getStatus());
         }
     }
