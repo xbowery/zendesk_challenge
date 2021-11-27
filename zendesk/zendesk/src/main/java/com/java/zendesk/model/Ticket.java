@@ -23,7 +23,15 @@ public class Ticket {
     public Ticket(int id, String created_at, String updated_at, String type, String subject, String priority,
             String status) {
         this.id = id;
-        this.created_at = created_at;
+        
+        String[] tempStringArray = created_at.split("T");
+        tempStringArray[1] = tempStringArray[1].substring(0, 8);
+        this.created_at = tempStringArray[0] + " " + tempStringArray[1];
+
+        tempStringArray = updated_at.split("T");
+        tempStringArray[1] = tempStringArray[1].substring(0, 8);
+        this.updated_at = tempStringArray[0] + " " + tempStringArray[1];
+
         this.type = type;
         this.subject = subject;
         this.priority = priority;
