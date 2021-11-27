@@ -11,10 +11,14 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.java.zendesk.model.Ticket;
+import com.java.zendesk.repository.TicketRepository;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class TicketService {
     private static final String authPassword = "{email_address}:{password}";
 
@@ -30,6 +34,13 @@ public class TicketService {
     private static int totalTicketCount;
 
     private static List<Ticket> ticketList = new ArrayList<>();
+
+    private static TicketRepository tickets;
+
+    @Autowired
+    public TicketService(TicketRepository tickets) {
+        this.tickets = tickets;
+    }
 
     public static void addAllTickets(String urlPath) throws IOException {
         int index = 0;
@@ -68,7 +79,7 @@ public class TicketService {
             String status = getIndividualTicket.get("status").toString();
 
             Ticket newTicket = new Ticket(id, created_at, updated_at, type, subject, priority, status);
-            ticketList.add(newTicket);
+            tickets.save(newTicket);
             index++;
         }
 
@@ -77,6 +88,8 @@ public class TicketService {
             String nextPageURL = (String) nextPage;
             addAllTickets(nextPageURL);
         } else {
+            System.out.println("yay!");
+            ticketList = tickets.findAll();
             return;
         }
     }
@@ -89,6 +102,11 @@ public class TicketService {
         Scanner sc = new Scanner(System.in);
         int pageNo = count;
         int totalPageNo = (int) Math.ceil(ticketList.size() * 1.0 / maxTicketPerPage);
+
+        if (ticketList.size() == 0) {
+            System.out.println("Sorry, there are no tickets for you to view in this account.");
+            return;
+        }
 
         if (count != totalPageNo) {
             System.out.printf("Viewing Ticket #%d to Ticket #%d\n", ((count - 1) * maxTicketPerPage + 1),

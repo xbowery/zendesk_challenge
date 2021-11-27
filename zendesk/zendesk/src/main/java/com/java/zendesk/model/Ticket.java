@@ -1,9 +1,15 @@
 package com.java.zendesk.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Ticket {
+    
+    @Id
     private int id;
 
     private String created_at;
