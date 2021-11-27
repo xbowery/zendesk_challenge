@@ -99,7 +99,7 @@ public class TicketService {
         }
 
         System.out.println("");
-        System.out.printf("%-5s%-50s%-15s%-15s%-25s%s\n", "ID", "Subject", "Type", "Priority", "Date Created",
+        System.out.printf("%-5s%-50s%-15s%-15s%-25s%-25s%s\n", "ID", "Subject", "Type", "Priority", "Date Created", "Date Updated",
                 "Status");
         for (int i = (count - 1) * maxTicketPerPage; i < count * maxTicketPerPage; i++) {
             if (i < ticketList.size())
@@ -143,5 +143,23 @@ public class TicketService {
             }
             printAllTickets(pageChoice);
         }
+    }
+
+    public static Ticket getIndividualTicket(int id) {
+        Ticket targetTicket = null;
+        for (Ticket ticket : ticketList) {
+            if (ticket.getId() == id) {
+                targetTicket = ticket;
+            }
+        }
+        return targetTicket;
+    }
+
+    public static void printIndividualTicket(Ticket ticket) {
+        System.out.printf("Viewing Ticket #%d\n", ticket.getId());
+        System.out.println("");
+        System.out.printf("%-5s%-50s%-15s%-15s%-25s%-25s%s\n", "ID", "Subject", "Type", "Priority", "Date Created",
+                "Date Updated", "Status");
+        System.out.println(ticket.toString());
     }
 }

@@ -21,25 +21,53 @@ public class ZendeskApplication {
 		Scanner sc = new Scanner(System.in);
 
 		try {
+			System.out.println("Good day to you!");
+			System.out.println("");
+			System.out.println("The application is loading...");
+
+			TicketService.addAllTickets(allTicketsListURL);
+
+			printWelcomeScreen();
+
 			int choice = 0;
 			while (choice != 3) {
-				System.out.println(
-						"Welcome to Zendesk Ticket Viewer! Please enter the number corresponding to your choice:");
-				System.out.println("1. View all tickets");
-				System.out.println("2. View individual ticket");
-				System.out.println("3. Exit");
-				System.out.println("");
-				System.out.print("Enter your choice: ");
+				printOptionScreen();
 				choice = sc.nextInt();
+				System.out.println("");
+
 				if (choice == 1) {
 					System.out.println("You have selected Option 1. Please wait while we fetch the data for you.");
 					System.out.println("");
-					TicketService.addAllTickets(allTicketsListURL);
+
 					TicketService.printAllTickets(1);
 
 					if (toExit()) {
 						break;
 					}
+				} else if (choice == 2) {
+					System.out.println("You have selected Option 2.");
+					System.out.print("Please enter the ticket ID which you wish to view: ");
+					int ticketId = sc.nextInt();
+
+					System.out.println("");
+
+					Ticket ticket = TicketService.getIndividualTicket(ticketId);
+
+					if (ticket != null) {
+						TicketService.printIndividualTicket(ticket);
+					} else {
+						System.out.println("Sorry, there is no ticket found with ID: " + ticketId + ".");
+					}
+
+					if (toExit()) {
+						break;
+					}
+				} else if (choice == 3) {
+					break;
+				} else {
+					System.out.println(
+							"Sorry, you have entered an invalid option. Please enter only 1, 2 or 3. Please try again.");
+					System.out.println("");
 				}
 			}
 		} catch (IOException e) {
@@ -48,7 +76,26 @@ public class ZendeskApplication {
 			ctx.close();
 		}
 		System.out.println("Thank you for using the app. Have a good day ahead!");
+		sc.close();
 		ctx.close();
+	}
+
+	public static void printWelcomeScreen() {
+		System.out.println("__________                 .___             __    ");
+		System.out.println("\\____    /____   ____    __| _/____   _____|  | __");
+		System.out.println("  /     // __ \\ /    \\  / __ |/ __ \\ /  ___/  |/ /");
+		System.out.println(" /     /\\  ___/|   |  \\/ /_/ \\  ___/ \\___ \\|    < ");
+		System.out.println("/_______ \\___  >___|  /\\____ |\\___  >____  >__|_ \\");
+		System.out.println("        \\/   \\/     \\/      \\/    \\/     \\/     \\/");
+	}
+
+	private static void printOptionScreen() {
+		System.out.println("Welcome to Zendesk Ticket Viewer! Please enter the number corresponding to your choice:");
+		System.out.println("1. View all tickets");
+		System.out.println("2. View individual ticket");
+		System.out.println("3. Exit");
+		System.out.println("");
+		System.out.print("Enter your choice: ");
 	}
 
 	private static boolean toExit() {

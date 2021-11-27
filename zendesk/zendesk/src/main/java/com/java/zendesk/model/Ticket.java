@@ -68,7 +68,7 @@ public class Ticket {
 
     @Override
     public String toString() {
-        return String.format("%-5d%-50s%-15s%-15s%-25s%s\n", this.getId(), this.getSubject(), this.getType(),
-                this.getPriority(), this.getCreatedDate(), this.getStatus());
+        return String.format("%-5d%-50s%-15s%-15s%-25s%-25s%s\n", this.getId(), this.getSubject(), this.getType(),
+                this.getPriority(), this.getCreatedDate(), this.getUpdatedDate(), this.getStatus());
     }
 }
