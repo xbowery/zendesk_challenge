@@ -32,6 +32,8 @@ Before you run the application, please ensure that you have changed the followin
    2. In **Line 25 of `TicketService.java`**, change the variables **`{email_address}`** and **`{api_token}`** to your **Zendesk account's email address and token** respectively.
    3. In **Line 55 of `TicketService.java`**, change the **`encodedAuthPassword`** variable to **`encodedAuthToken`**.
 
+**Note: Please ensure that you have enabled Password access/Token access in your Zendesk API Settings before trying to launch this application.**
+
 ## Steps to run the application
 
 To run the application locally, please do the following steps:
