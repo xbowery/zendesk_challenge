@@ -163,12 +163,7 @@ public class TicketService {
     }
 
     public static Ticket getIndividualTicket(int id) {
-        Ticket targetTicket = null;
-        for (Ticket ticket : ticketList) {
-            if (ticket.getId() == id) {
-                targetTicket = ticket;
-            }
-        }
+        Ticket targetTicket = tickets.findById(id).orElse(null);
         return targetTicket;
     }
 
