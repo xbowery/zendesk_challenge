@@ -1,6 +1,7 @@
 package com.java.zendesk;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.Scanner;
 
 import com.java.zendesk.model.Ticket;
@@ -24,6 +25,7 @@ public class ZendeskApplication {
 			System.out.println("Good day to you!");
 			System.out.println("");
 			System.out.println("The application is loading...");
+			System.out.println("");
 
 			TicketService.addAllTickets(allTicketsListURL);
 
@@ -70,6 +72,9 @@ public class ZendeskApplication {
 					System.out.println("");
 				}
 			}
+		} catch (UnknownHostException e) {
+			System.out.println(
+					"Sorry, there was an error connecting to the Zendesk server. Please ensure that you are connected to the Internet.");
 		} catch (IOException e) {
 			System.out.println(
 					"Sorry, there was an error reading the data while connecting. Please check whether you have entered your credentials correctly and try again later.");
